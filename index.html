@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pepsi</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root { --blue:#0a3a8f; --deep:#06245c; --red:#e4202e; --white:#fff; --ice:#dff1ff; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Barlow',sans-serif; background:var(--deep); color:var(--white); overflow-x:hidden; }
+  h1,h2,h3,.big { font-family:'Anton',sans-serif; font-weight:400; letter-spacing:.02em; }
+
+  /* ---------- HERO ---------- */
+  .hero { position:relative; height:100vh; display:grid; place-items:center; overflow:hidden;
+          background:linear-gradient(160deg,#1556c8,var(--blue) 55%,var(--deep)); }
+  .hero .big { font-size:clamp(7rem,28vw,26rem); line-height:1; color:var(--white); }
+  .hero .can { position:absolute; width:clamp(110px,16vw,210px); top:22%; left:50%; margin-left:calc(clamp(110px,16vw,210px) / -2);
+               filter:drop-shadow(0 30px 30px rgba(0,0,0,.4)); transform:rotate(-18deg); }
+  .hero .ice { position:absolute; width:90px; opacity:.85; }
+  .ice.i1 { left:12%; top:18%; } .ice.i2 { right:10%; bottom:16%; width:120px; }
+  .band { height:14vh; background:var(--red); }
+
+  /* ---------- FLAVOURS ---------- */
+  .flavours { padding:12vh 6vw; background:var(--blue); display:flex; gap:4vw; justify-content:center; flex-wrap:wrap; }
+  .card { position:relative; width:min(300px,80vw); padding:130px 20px 28px; margin-top:90px; text-align:center;
+          background:linear-gradient(#fff,#dfe8f7); border-radius:28px; color:var(--deep); }
+  .card .can { position:absolute; width:130px; top:-90px; left:50%; margin-left:-65px; filter:drop-shadow(0 14px 14px rgba(0,0,0,.3)); }
+  .card button { font:600 1rem 'Barlow',sans-serif; background:var(--red); color:#fff; border:0; padding:.7rem 1.8rem;
+                 border-radius:999px; cursor:pointer; margin-bottom:16px; }
+  .card button:hover { background:var(--deep); }
+  .card h3 { font-size:2.6rem; color:var(--red); }
+
+  /* ---------- REFRESHING (pinned) ---------- */
+  .fresh { position:relative; height:100vh; display:grid; place-items:center; overflow:hidden; background:var(--red); }
+  .fresh .panel { position:relative; width:min(900px,86vw); height:78vh; background:linear-gradient(#ffffff,var(--ice));
+                  border-radius:18px; display:grid; place-items:center; overflow:hidden; }
+  .fresh h2 { font-size:clamp(3rem,13vw,10rem); color:transparent; -webkit-text-stroke:2px var(--blue); letter-spacing:.04em; }
+  .fresh .can { position:absolute; width:clamp(90px,14vw,150px); left:50%; margin-left:calc(clamp(90px,14vw,150px) / -2); top:-30%; }
+  .fresh .ice { position:absolute; width:70px; opacity:.9; }
+  .fresh .i1 { left:14%; top:20%; } .fresh .i2 { right:12%; top:60%; width:90px; }
+  .fresh small { position:absolute; bottom:14px; color:var(--blue); font-weight:500; letter-spacing:.2em; }
+
+  /* ---------- ABOUT ---------- */
+  .about { background:#f3f7fd; color:var(--deep); padding:12vh 6vw; display:grid; gap:28px;
+           grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); max-width:1100px; margin:0 auto; }
+  .about article { background:#fff; padding:28px; border-radius:20px; box-shadow:0 10px 30px rgba(10,58,143,.15); }
+  .about h3 { font-size:2rem; color:var(--red); margin-bottom:10px; }
+  .about p { line-height:1.6; max-width:60ch; }
+  .wrap-about { background:#f3f7fd; }
+
+  /* ---------- SOCIAL ---------- */
+  .social { position:relative; background:linear-gradient(160deg,#1556c8,var(--blue)); text-align:center; padding:18vh 6vw; overflow:hidden; }
+  .social h2 { font-size:clamp(3rem,10vw,7rem); }
+  .social p { margin-top:14px; font-size:1.2rem; }
+  footer { background:var(--deep); text-align:center; padding:28px; font-size:.9rem; opacity:.9; }
+
+  @media (prefers-reduced-motion:reduce){ * { scroll-behavior:auto !important; } }
+</style>
+</head>
+<body>
+
+<!-- Reusable Pepsi globe + can (inline SVG, so no images are needed) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="globe" viewBox="0 0 100 100">
+      <clipPath id="gc"><circle cx="50" cy="50" r="48"/></clipPath>
+      <g clip-path="url(#gc)">
+        <rect width="100" height="100" fill="#e4202e"/>
+        <rect y="50" width="100" height="50" fill="#0a3a8f"/>
+        <path d="M0 58 C30 28 60 70 100 40 L100 56 C62 86 32 46 0 76 Z" fill="#fff"/>
+      </g>
+    </symbol>
+    <linearGradient id="gBlue" x1="0" x2="1"><stop offset="0" stop-color="#06245c"/><stop offset=".45" stop-color="#2f6fe0"/><stop offset="1" stop-color="#06245c"/></linearGradient>
+    <linearGradient id="gBlack" x1="0" x2="1"><stop offset="0" stop-color="#0b0b12"/><stop offset=".45" stop-color="#3a3f55"/><stop offset="1" stop-color="#0b0b12"/></linearGradient>
+    <linearGradient id="gRed" x1="0" x2="1"><stop offset="0" stop-color="#7d0a14"/><stop offset=".45" stop-color="#e4202e"/><stop offset="1" stop-color="#7d0a14"/></linearGradient>
+    <symbol id="ice" viewBox="0 0 100 100">
+      <rect x="12" y="12" width="76" height="76" rx="14" fill="#fff" fill-opacity=".55" stroke="#9fd0ff" stroke-width="3" transform="rotate(14 50 50)"/>
+    </symbol>
+  </defs>
+</svg>
+
+<template id="can-tpl">
+  <svg class="can" viewBox="0 0 120 220" xmlns="http://www.w3.org/2000/svg">
+    <rect x="10" y="14" width="100" height="192" rx="14" fill="url(#GRAD)"/>
+    <ellipse cx="60" cy="14" rx="50" ry="8" fill="#cfd6e4"/>
+    <ellipse cx="60" cy="206" rx="50" ry="8" fill="#9aa4b8"/>
+    <use href="#globe" x="30" y="64" width="60" height="60"/>
+    <text x="60" y="150" text-anchor="middle" font-family="Anton,sans-serif" font-size="22" fill="#fff" letter-spacing="2">PEPSI</text>
+    <text x="60" y="172" text-anchor="middle" font-family="Barlow,sans-serif" font-size="9" fill="#fff" letter-spacing="2">LABEL</text>
+    <rect x="22" y="24" width="8" height="170" rx="4" fill="#fff" opacity=".22"/>
+  </svg>
+</template>
+
+<!-- 1) HERO -->
+<section class="hero">
+  <svg class="ice i1"><use href="#ice"/></svg>
+  <svg class="ice i2"><use href="#ice"/></svg>
+  <h1 class="big">PEPSI</h1>
+  <div class="can-slot" data-grad="gBlue" data-label="ORIGINAL" data-class="can hero-can"></div>
+</section>
+<div class="band"></div>
+
+<!-- 2) FLAVOURS -->
+<section class="flavours">
+  <div class="card"><div class="can-slot" data-grad="gBlue" data-label="ORIGINAL"></div><button>Buy now</button><h3>ORIGINAL</h3></div>
+  <div class="card"><div class="can-slot" data-grad="gBlack" data-label="ZERO SUGAR"></div><button>Buy now</button><h3>ZERO</h3></div>
+  <div class="card"><div class="can-slot" data-grad="gRed" data-label="WILD CHERRY"></div><button>Buy now</button><h3>CHERRY</h3></div>
+</section>
+
+<!-- 3) REFRESHING -->
+<section class="fresh">
+  <div class="panel">
+    <svg class="ice i1"><use href="#ice"/></svg>
+    <svg class="ice i2"><use href="#ice"/></svg>
+    <h2>REFRESHING</h2>
+    <div class="can-slot" data-grad="gBlue" data-label="ORIGINAL"></div>
+    <small>PEPSI</small>
+  </div>
+</section>
+
+<!-- 4) ABOUT -->
+<div class="wrap-about">
+  <section class="about">
+    <article>
+      <h3>History of Pepsi</h3>
+      <p>Pepsi began in 1893 in New Bern, North Carolina, when pharmacist Caleb Bradham mixed a drink he called "Brad's Drink". In 1898 he renamed it Pepsi-Cola.</p>
+    </article>
+    <article>
+      <h3>Pepsi around the world</h3>
+      <p>Today Pepsi is sold in more than 200 countries and territories, with the same blue, red and white globe recognised on every continent.</p>
+    </article>
+  </section>
+</div>
+
+<!-- 5) SOCIAL -->
+<section class="social">
+  <h2>We are Social</h2>
+  <p>Follow Pepsi for new flavours, drops and music.</p>
+</section>
+<footer>Fan-made practice page. Pepsi is a trademark of PepsiCo, Inc.</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Build every can from the template
+  const tpl = document.getElementById('can-tpl').innerHTML;
+  document.querySelectorAll('.can-slot').forEach(slot => {
+    const html = tpl.replace('GRAD', slot.dataset.grad).replace('LABEL', slot.dataset.label);
+    slot.outerHTML = html;
+  });
+
+  const mm = gsap.matchMedia();
+  mm.add('(prefers-reduced-motion: no-preference)', () => {
+
+    // 1) Hero: can drops and spins as you scroll, hero stays pinned
+    gsap.timeline({
+      scrollTrigger: { trigger: '.hero', start: 'top top', end: '+=120%', scrub: 1, pin: true }
+    })
+    .to('.hero .can', { y: '38vh', rotate: 24, scale: 1.25, ease: 'none' }, 0)
+    .to('.hero .big', { scale: .8, opacity: .55, ease: 'none' }, 0)
+    .to('.hero .i1', { x: -120, y: 160, rotate: -40, ease: 'none' }, 0)
+    .to('.hero .i2', { x: 120, y: -140, rotate: 50, ease: 'none' }, 0);
+
+    // 2) Flavour cards rise in one by one
+    gsap.from('.card', {
+      y: 140, opacity: 0, stagger: .2, duration: 1, ease: 'power3.out',
+      scrollTrigger: { trigger: '.flavours', start: 'top 70%' }
+    });
+
+    // 3) "REFRESHING": pinned, can falls through the word, text fills in
+    gsap.timeline({
+      scrollTrigger: { trigger: '.fresh', start: 'top top', end: '+=150%', scrub: 1, pin: true }
+    })
+    .to('.fresh .can', { top: '110%', rotate: 360, ease: 'none' }, 0)
+    .to('.fresh h2', { color: '#0a3a8f', ease: 'none' }, 0.3)
+    .to('.fresh .i1', { y: 260, rotate: 120, ease: 'none' }, 0)
+    .to('.fresh .i2', { y: -300, rotate: -150, ease: 'none' }, 0);
+
+    // 4) About cards
+    gsap.from('.about article', {
+      y: 80, opacity: 0, stagger: .25, duration: .9,
+      scrollTrigger: { trigger: '.about', start: 'top 80%' }
+    });
+
+    // 5) Social title
+    gsap.from('.social h2', {
+      scale: .6, opacity: 0, duration: 1, ease: 'back.out(1.7)',
+      scrollTrigger: { trigger: '.social', start: 'top 70%' }
+    });
+  });
+</script>
+</body>
+</html>
